@@ -1,0 +1,11 @@
+name: "اقتراح — Idea"
+description: "ميزة أو تحسين تريده · A feature or improvement you'd like"
+title: "[اقتراح] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: "ما اقتراحك؟ · Your idea"
+    validations:
+      required: true

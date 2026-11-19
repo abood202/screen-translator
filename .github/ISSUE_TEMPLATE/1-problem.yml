@@ -1,0 +1,27 @@
+name: "مشكلة — Problem"
+description: "شيء لا يعمل كما ينبغي · Something isn't working"
+title: "[مشكلة] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: what
+    attributes:
+      label: "ماذا حدث؟ · What happened?"
+      description: "اشرح المشكلة وما كنت تفعله · Describe the problem and what you were doing"
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: "خطوات تكرارها (اختياري) · Steps to reproduce (optional)"
+  - type: input
+    id: version
+    attributes:
+      label: "إصدار البرنامج · App version"
+      description: "الإعدادات ← النظام · Settings → System"
+  - type: textarea
+    id: log
+    attributes:
+      label: "سجل الأعطال (اختياري) · Problem log (optional)"
+      description: "الإعدادات ← النظام ← فتح سجل الأعطال · Settings → System → Open problem log"
+      render: text

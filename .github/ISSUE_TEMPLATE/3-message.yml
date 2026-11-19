@@ -1,0 +1,10 @@
+name: "شكر أو رسالة — Thanks / message"
+description: "كلمة شكر أو ملاحظة عامة · A thank-you or general note"
+title: "[رسالة] "
+body:
+  - type: textarea
+    id: msg
+    attributes:
+      label: "رسالتك · Your message"
+    validations:
+      required: true
