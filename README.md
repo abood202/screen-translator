@@ -6,7 +6,7 @@
 
 ## التنزيل
 
-من صفحة [**الإصدارات (Releases)**](../../releases/latest):
+من **[صفحة البرنامج](https://abood202.github.io/screen-translator/)**، أو من صفحة [**الإصدارات (Releases)**](../../releases/latest):
 
 - **`ScreenTranslator-…-Setup.exe`** — مثبّت عادي (موصى به).
 - **`ScreenTranslator-…-portable.zip`** — نسخة محمولة تعمل من أي مجلد أو فلاشة بلا تثبيت.
@@ -25,6 +25,7 @@
 ## الدعم والتواصل
 
 - **مشكلة أو اقتراح:** افتح [**مشكلة جديدة (New issue)**](../../issues/new/choose) — أو من داخل البرنامج: الإعدادات ← الدعم والتواصل.
+- **شروط الاستخدام:** [LICENSE](LICENSE) — جميع الحقوق محفوظة، ممنوع إعادة التوزيع.
 - **رسالة خاصة:** aabedokemoo2033@gmail.com
 - **ادعم البرنامج:** من داخل البرنامج (الإعدادات ← الدعم والتواصل): فودافون كاش، PayPal، وغيرها.
 
@@ -36,6 +37,6 @@
 
 A free Windows app that translates any text on screen, and translates and dubs audio with a natural voice — in games, videos, websites and apps.
 
-**Download** the installer or the portable version from [**Releases**](../../releases/latest). Works on Windows 10/11 (64-bit) with nothing else to install.
+**Download** from the [**app page**](https://abood202.github.io/screen-translator/), or the installer or the portable version from [**Releases**](../../releases/latest). Works on Windows 10/11 (64-bit) with nothing else to install.
 
 **Report a problem or suggest an idea:** [**New issue**](../../issues/new/choose) · **Private message:** aabedokemoo2033@gmail.com

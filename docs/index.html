@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>مترجم الشاشة — Screen Translator</title>
+<meta name="description" content="برنامج مجاني لويندوز يترجم نص الشاشة والصوت ويدبلج الفيديو بصوت طبيعي · Free Windows screen and audio translator with dubbing">
+<meta property="og:title" content="مترجم الشاشة — Screen Translator">
+<meta property="og:description" content="ترجم أي نص على الشاشة، وترجم الصوت ودبلجه بصوت طبيعي — مجانًا لويندوز">
+<meta property="og:image" content="shots/main-ar.png">
+<link rel="icon" href="icon.png">
+<style>
+  :root {
+    --bg: #12151d; --card: #1b1f2a; --card2: #222838; --border: #2a3143;
+    --fg: #edf0f7; --muted: #8a91a5; --accent: #1f6fe5; --accent-h: #4b93ff; --accent-btn-h: #1a5fc8;
+    --red: #e5484d; --purple: #8b5cf6; --green: #22b573; --orange: #f97316;
+    --radius: 14px;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0; background: var(--bg); color: var(--fg); line-height: 1.7;
+    font-family: "Segoe UI", Tahoma, "Noto Sans Arabic", system-ui, sans-serif; font-size: 17px;
+  }
+  html[lang="ar"] .en, html[lang="en"] .ar { display: none !important; }
+  a { color: var(--accent-h); }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 0 16px; }
+
+  header.top { display: flex; align-items: center; justify-content: space-between; padding: 18px 0; gap: 12px; }
+  .brand { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 19px; color: var(--fg); text-decoration: none; }
+  .brand img { width: 34px; height: 34px; border-radius: 8px; }
+  .lang { background: var(--card); color: var(--fg); border: 1px solid var(--border); border-radius: 999px;
+          padding: 6px 16px; font: inherit; font-size: 15px; cursor: pointer; }
+  .lang:hover { border-color: var(--accent); }
+
+  .hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; padding: 40px 0 56px; }
+  .hero h1 { font-size: clamp(30px, 5vw, 46px); line-height: 1.25; margin: 0 0 14px; }
+  .hero h1 span { color: var(--accent-h); }
+  .hero p.lead { color: var(--muted); font-size: 19px; margin: 0 0 26px; }
+  .hero-shot { border-radius: var(--radius); border: 1px solid var(--border); width: 100%; height: auto;
+               box-shadow: 0 24px 60px rgba(0, 0, 0, .45), 0 0 0 1px rgba(47, 128, 255, .08); }
+
+  .dl { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
+  .btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 26px; border-radius: 12px;
+         font: inherit; font-weight: 700; text-decoration: none; transition: background .15s, border-color .15s; }
+  .btn.primary { background: var(--accent); color: #fff; font-size: 18px; }
+  .btn.primary:hover { background: var(--accent-btn-h); }
+  .btn.ghost { background: transparent; color: var(--fg); border: 1px solid var(--border); }
+  .btn.ghost:hover { border-color: var(--accent); }
+  .btn svg { width: 20px; height: 20px; flex: none; }
+  .meta { color: var(--muted); font-size: 14px; margin-top: 12px; }
+
+  section { padding: 56px 0; border-top: 1px solid var(--border); }
+  section h2 { font-size: 28px; margin: 0 0 8px; }
+  section p.sub { color: var(--muted); margin: 0 0 30px; }
+
+  .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 16px; }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 22px; }
+  .card h3 { margin: 12px 0 6px; font-size: 18px; }
+  .card p { margin: 0; color: var(--muted); font-size: 15px; }
+  .ico { width: 44px; height: 44px; border-radius: 50%; display: grid; place-items: center; }
+  .ico svg { width: 22px; height: 22px; }
+
+  .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  figure { margin: 0; }
+  figure img { width: 100%; height: auto; border-radius: var(--radius); border: 1px solid var(--border); display: block; }
+  figcaption { color: var(--muted); font-size: 15px; margin-top: 10px; }
+
+  ol.steps { padding: 0; margin: 0; list-style: none; counter-reset: s; display: grid; gap: 14px; }
+  ol.steps li { counter-increment: s; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+                padding: 16px 20px; display: flex; gap: 14px; align-items: flex-start; }
+  ol.steps li::before { content: counter(s); flex: none; width: 30px; height: 30px; border-radius: 50%;
+                        background: var(--accent); color: #fff; display: grid; place-items: center; font-weight: 700; }
+  .note { background: #2a2214; border: 1px solid #5a4521; color: #f5d9a8; border-radius: var(--radius);
+          padding: 14px 18px; margin-top: 18px; font-size: 15px; }
+  kbd { background: var(--card2); border: 1px solid var(--border); border-radius: 6px; padding: 1px 7px;
+        font-family: inherit; font-size: 14px; white-space: nowrap; }
+
+  footer { border-top: 1px solid var(--border); padding: 28px 0 40px; color: var(--muted); font-size: 14px; }
+  footer .row { display: flex; flex-wrap: wrap; gap: 8px 22px; justify-content: space-between; }
+
+  @media (max-width: 820px) {
+    .hero { grid-template-columns: 1fr; padding-top: 16px; gap: 28px; }
+    .shots { grid-template-columns: 1fr; }
+    body { font-size: 16px; }
+  }
+  @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#"><img src="icon.png" alt=""><span class="ar">مترجم الشاشة</span><span class="en">Screen Translator</span></a>
+    <button class="lang" id="lang" type="button"><span class="ar">English</span><span class="en">العربية</span></button>
+  </header>
+
+  <div class="hero">
+    <div>
+      <h1 class="ar">ترجم <span>أي شيء</span> على شاشتك، واسمعه بالعربية</h1>
+      <h1 class="en">Translate <span>anything</span> on your screen, and hear it in your language</h1>
+      <p class="lead ar">ألعاب، فيديوهات، مواقع وبرامج: حدد النص فتظهر ترجمته فوقه، أو دع البرنامج يسمع الصوت ويترجمه ويدبلجه بصوت طبيعي. مجاني لويندوز.</p>
+      <p class="lead en">Games, videos, websites and apps: select text and see its translation on top of it, or let the app listen, translate and dub the audio in a natural voice. Free for Windows.</p>
+      <div class="dl">
+        <a class="btn primary" id="dl-setup" href="https://github.com/abood202/screen-translator/releases/latest">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>
+          <span class="ar">نزّل البرنامج</span><span class="en">Download</span>
+        </a>
+        <a class="btn ghost" id="dl-portable" href="https://github.com/abood202/screen-translator/releases/latest">
+          <span class="ar">نسخة محمولة (zip)</span><span class="en">Portable (zip)</span>
+        </a>
+      </div>
+      <div class="meta"><span class="ar">ويندوز 10 و11 (64 بت)</span><span class="en">Windows 10 / 11 (64-bit)</span><span id="ver"></span></div>
+    </div>
+    <img class="hero-shot ar" src="shots/main-ar.png" alt="النافذة الرئيسية لمترجم الشاشة" width="676" height="495">
+    <img class="hero-shot en" src="shots/main-en.png" alt="Screen Translator main window" width="676" height="495">
+  </div>
+
+  <section id="features">
+    <h2 class="ar">ماذا يفعل</h2><h2 class="en">What it does</h2>
+    <p class="sub ar">أربع أدوات في برنامج واحد، بواجهة عربية كاملة.</p>
+    <p class="sub en">Four tools in one app, with a full Arabic or English interface.</p>
+    <div class="grid">
+      <div class="card">
+        <div class="ico" style="background:rgba(47,128,255,.15);color:var(--accent-h)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3"/></svg></div>
+        <h3 class="ar">ترجمة الشاشة</h3><h3 class="en">Screen translation</h3>
+        <p class="ar">حدد منطقة فتظهر الترجمة فوق النص في مكانه أو في شريط. ووضع «مباشر» يتابع النص كلما تغيّر.</p>
+        <p class="en">Select an area and the translation appears over the text or in a bar. Live mode follows the text as it changes.</p>
+      </div>
+      <div class="card">
+        <div class="ico" style="background:rgba(139,92,246,.16);color:#a98bfa"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 10v4M8 6v12M12 3v18M16 7v10M20 10v4"/></svg></div>
+        <h3 class="ar">ترجمة الصوت ودبلجته</h3><h3 class="en">Live audio translation</h3>
+        <p class="ar">يسمع صوت الجهاز أو الميكروفون، ويعرض الترجمة كشريط سفلي، وينطقها بصوت طبيعي.</p>
+        <p class="en">Listens to your PC or microphone, shows subtitles, and speaks the translation in a natural voice.</p>
+      </div>
+      <div class="card">
+        <div class="ico" style="background:rgba(229,72,77,.15);color:#f07175"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M10 9l5 3-5 3z"/></svg></div>
+        <h3 class="ar">دبلجة الفيديو</h3><h3 class="en">Video dubbing</h3>
+        <p class="ar">أفلت فيديو أو ملف صوت: تحصل على ملف ترجمة يعمل مع أي مشغّل، ونسخة مدبلجة كاملة بعد مراجعتك للنص.</p>
+        <p class="en">Drop a video or audio file: get a subtitle file for any player and a fully dubbed copy, after you review the text.</p>
+      </div>
+      <div class="card">
+        <div class="ico" style="background:rgba(34,181,115,.15);color:#4fd39a"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/></svg></div>
+        <h3 class="ar">يعمل بلا إنترنت أيضًا</h3><h3 class="en">Works offline too</h3>
+        <p class="ar">أكثر من 39 لغة، وترجمة وفهم للكلام على جهازك إن أردت أن يبقى كل شيء عندك.</p>
+        <p class="en">39+ languages, with on-device translation and speech recognition when you want everything to stay on your PC.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="shots">
+    <h2 class="ar">من داخل البرنامج</h2><h2 class="en">Inside the app</h2>
+    <p class="sub ar">لقطات حقيقية من الإصدار الحالي.</p><p class="sub en">Real screenshots from the current version.</p>
+    <div class="shots">
+      <figure>
+        <img class="ar" src="shots/media-ar.png" alt="صفحة ترجمة ودبلجة ملف" loading="lazy" width="1176" height="926">
+        <img class="en" src="shots/media-en.png" alt="Translate and dub a file" loading="lazy" width="1176" height="926">
+        <figcaption><span class="ar">ترجمة ودبلجة ملف فيديو أو صوت: اسحبه وأفلته واختر الصوت.</span><span class="en">Translate and dub a video or audio file: drag, drop, pick a voice.</span></figcaption>
+      </figure>
+      <figure>
+        <img class="ar" src="shots/audio-ar.png" alt="إعدادات الصوت والدبلجة" loading="lazy" width="1176" height="958">
+        <img class="en" src="shots/audio-en.png" alt="Audio and dubbing settings" loading="lazy" width="1176" height="958">
+        <figcaption><span class="ar">ترجمة الصوت المباشرة: صوت الجهاز أو الميكروفون، كشريط أو بالدبلجة.</span><span class="en">Live audio translation: PC sound or microphone, as subtitles or dubbed.</span></figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section id="install">
+    <h2 class="ar">التثبيت</h2><h2 class="en">Installing</h2>
+    <ol class="steps">
+      <li><span class="ar">نزّل المثبّت من الزر أعلاه وشغّله. لا يحتاج صلاحيات المسؤول.</span><span class="en">Download the installer above and run it. No admin rights needed.</span></li>
+      <li><span class="ar">اضغط <kbd>Ctrl+Alt+T</kbd> وحدد أي نص على الشاشة.</span><span class="en">Press <kbd>Ctrl+Alt+T</kbd> and select any text on screen.</span></li>
+      <li><span class="ar">لترجمة الصوت اضغط زر «الصوت» أو <kbd>Ctrl+Alt+A</kbd>.</span><span class="en">For audio, press the Audio button or <kbd>Ctrl+Alt+A</kbd>.</span></li>
+    </ol>
+    <div class="note">
+      <span class="ar">قد يظهر تحذير «Windows protected your PC» لأن البرنامج جديد وغير موقّع رقميًا بعد. اضغط «مزيد من المعلومات» (More info) ثم «تشغيل على أي حال» (Run anyway).</span>
+      <span class="en">Windows may show “Windows protected your PC” because the app is new and not code-signed yet. Click “More info”, then “Run anyway”.</span>
+    </div>
+  </section>
+
+  <section id="support">
+    <h2 class="ar">الدعم والتواصل</h2><h2 class="en">Support</h2>
+    <p class="sub ar">البرنامج مجاني ويعمل عليه شخص واحد. ملاحظتك تساعد، ودعمك يُبقيه مستمرًا.</p>
+    <p class="sub en">The app is free and made by one person. Your feedback helps, and your support keeps it going.</p>
+    <div class="grid">
+      <div class="card">
+        <h3 class="ar">مشكلة أو فكرة</h3><h3 class="en">A problem or an idea</h3>
+        <p><a href="https://github.com/abood202/screen-translator/issues/new/choose"><span class="ar">أرسلها هنا</span><span class="en">Send it here</span></a><span class="ar">، أو من داخل البرنامج: الإعدادات ← الدعم والتواصل.</span><span class="en">, or from the app: Settings → Support.</span></p>
+      </div>
+      <div class="card">
+        <h3 class="ar">ادعم البرنامج</h3><h3 class="en">Support the app</h3>
+        <p><a href="https://paypal.me/abood386">PayPal</a><span class="ar">، وفودافون كاش وغيرها من داخل البرنامج.</span><span class="en">, and more options inside the app.</span></p>
+      </div>
+      <div class="card">
+        <h3 class="ar">رسالة خاصة</h3><h3 class="en">Private message</h3>
+        <p><a href="mailto:aabedokemoo2033@gmail.com">aabedokemoo2033@gmail.com</a></p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>
+  <div class="wrap row">
+    <span class="ar">© مترجم الشاشة. جميع الحقوق محفوظة.</span><span class="en">© Screen Translator. All rights reserved.</span>
+    <a href="https://github.com/abood202/screen-translator/blob/main/LICENSE"><span class="ar">شروط الاستخدام</span><span class="en">Terms of use</span></a>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var root = document.documentElement, KEY = "st-lang";
+  function setLang(l) {
+    root.lang = l; root.dir = l === "ar" ? "rtl" : "ltr";
+    try { localStorage.setItem(KEY, l); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem(KEY); } catch (e) {}
+  setLang(saved || ((navigator.language || "").slice(0, 2) === "ar" ? "ar" : (saved === null && navigator.language ? "en" : "ar")));
+  document.getElementById("lang").onclick = function () { setLang(root.lang === "ar" ? "en" : "ar"); };
+
+  // أحدث إصدار من GitHub: روابط مباشرة للملفين، وإلا تبقى روابط صفحة الإصدارات
+  fetch("https://api.github.com/repos/abood202/screen-translator/releases/latest", { headers: { Accept: "application/vnd.github+json" } })
+    .then(function (r) { return r.ok ? r.json() : null; })
+    .then(function (rel) {
+      if (!rel || !rel.assets) return;
+      rel.assets.forEach(function (a) {
+        var n = a.name.toLowerCase(), mb = " (" + Math.round(a.size / 1048576) + " MB)";
+        if (n.slice(-9) === "setup.exe") { document.getElementById("dl-setup").href = a.browser_download_url; document.getElementById("dl-setup").title = a.name + mb; }
+        if (n.slice(-12) === "portable.zip") { document.getElementById("dl-portable").href = a.browser_download_url; document.getElementById("dl-portable").title = a.name + mb; }
+      });
+      var v = (rel.tag_name || "").replace(/^v/i, "");
+      if (v) document.getElementById("ver").textContent = " · v" + v;
+    })
+    .catch(function () {});
+})();
+</script>
+</body>
+</html>
