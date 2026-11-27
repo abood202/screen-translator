@@ -34,7 +34,7 @@
 .a-title .ctl span { width: 44px; height: 34px; display: grid; place-items: center; font-size: 13px; }
 
 /* أزرار */
-.a-btn { display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; border-radius: 9px;
+.a-btn { white-space: nowrap; display: inline-flex; align-items: center; gap: 7px; height: 38px; padding: 0 14px; border-radius: 9px;
          background: var(--a-card); border: 1px solid transparent; font-weight: 600; transition: background .15s; }
 .a-btn:hover { background: var(--a-hover); }
 .a-btn.pri { background: var(--a-accent); color: #fff; }
@@ -160,20 +160,22 @@ html[dir="rtl"] .tool .chev { transform: scaleX(-1); }
 .meter i { width: 4px; background: var(--a-green); border-radius: 2px; height: 4px; transition: height .1s; }
 .other p { color: var(--a-muted); }
 
-@media (max-width: 760px) {
-  .hub-body { grid-template-columns: 64px 1fr; height: 560px; }
-  .hub .hub-nav .grp, .hub .hub-nav .it span, .hub .hub-brand .nm { display: none; }
-  .hub .hub-nav .it { justify-content: center; padding: 0; }
-  .hub .hub-brand { flex-direction: column; }
-  .hub .hub-brand .menu { display: none; }
-  .hub-main { padding: 16px 14px 24px; }
-  .hub-main h3 { font-size: 21px; }
-  .tools { grid-template-columns: 1fr; }
-  .a-row .a-sel { width: 100%; }
-  .mw-row .lbl { display: none; }
-}
-@media (max-width: 420px) {
-  .mw-row .a-btn { padding: 0 10px; }
-  .mw-row .opt { display: none; }
-}
+/* حجم ثابت: النافذة تُرسم بعرضها الحقيقي وتُصغَّر كصورة لتناسب المكان (demo.js)، فلا يتغير توزيعها على أي شاشة.
+   إن صار التصغير أكثر من اللازم للقراءة (شاشة جوال) تتحول إلى تخطيط مرن مناسب للجوال: .fluid */
+.fit { position: relative; width: 100%; max-width: var(--w); margin-inline: auto; }
+.fit > .app { position: absolute; top: 0; width: var(--w); }
+html[dir="rtl"] .fit > .app { right: 0; transform-origin: top right; }
+html[dir="ltr"] .fit > .app { left: 0; transform-origin: top left; }
+.fit.fluid > .app { position: static; width: auto; transform: none !important; }
+.fluid .hub-body { grid-template-columns: 64px 1fr; height: 560px; }
+.fluid .hub-nav .grp, .fluid .hub-nav .it span, .fluid .hub-brand .nm { display: none; }
+.fluid .hub-nav .it { justify-content: center; padding: 0; }
+.fluid .hub-brand { flex-direction: column; }
+.fluid .hub-brand .menu { display: none; }
+.fluid .hub-main { padding: 16px 14px 24px; }
+.fluid .hub-main h3 { font-size: 21px; }
+.fluid .tools { grid-template-columns: 1fr; }
+.fluid .a-row .a-sel { width: 100%; }
+.fluid .mw-row .lbl, .fluid .mw-row .opt { display: none; }
+.fluid .mw-row .a-btn { padding: 0 10px; }
 @media (prefers-reduced-motion: reduce) { .app * { animation: none !important; transition: none !important; } }

@@ -252,5 +252,24 @@
     };
   });
 
+  // ----- حجم ثابت: عرض حقيقي ثم تصغير لمكانها، أو تخطيط الجوال إن صغر جدًا -----
+  function fitBox(app, width, minScale) {
+    var box = document.createElement("div");
+    box.className = "fit"; box.style.setProperty("--w", width + "px");
+    app.parentNode.insertBefore(box, app); box.appendChild(app);
+    function update() {
+      var avail = box.clientWidth, k = Math.min(1, avail / width);
+      if (k < minScale) { box.classList.add("fluid"); app.style.transform = ""; box.style.height = ""; return; }
+      box.classList.remove("fluid");
+      app.style.transform = k < 1 ? "scale(" + k + ")" : "";
+      box.style.height = app.offsetHeight * k + "px";
+    }
+    if (window.ResizeObserver) { new ResizeObserver(update).observe(box); new ResizeObserver(update).observe(app); }
+    else addEventListener("resize", update);
+    update();
+  }
+  fitBox($("mw"), 660, 0.6);
+  fitBox($("hub"), 1040, 0.62);
+
   applyLang();
 })();

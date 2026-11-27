@@ -10,7 +10,7 @@
 <meta property="og:image" content="https://abood202.github.io/screen-translator/shots/home-ar-dark.webp">
 <meta name="color-scheme" content="dark light">
 <link rel="icon" href="icon.png">
-<link rel="stylesheet" href="demo.css?v=3">
+<link rel="stylesheet" href="demo.css?v=6">
 <script>
   // قبل الرسم: اللغة والمظهر المحفوظان، فلا تومض الصفحة بالمظهر الخطأ
   (function () {
@@ -200,6 +200,9 @@
 
   :focus-visible { outline: 2px solid var(--c-blue); outline-offset: 2px; }
 
+  @media (max-width: 1100px) {
+    .hero { grid-template-columns: 1fr; gap: 36px; }
+  }
   @media (max-width: 900px) {
     nav.links { display: none; }
     .hero { grid-template-columns: 1fr; padding-top: 24px; gap: 32px; }
@@ -705,6 +708,6 @@
     .catch(function () {});
 })();
 </script>
-<script src="demo.js?v=2"></script>
+<script src="demo.js?v=4"></script>
 </body>
 </html>
