@@ -192,6 +192,7 @@
   .donate { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
   .donate .card { display: flex; flex-direction: column; gap: 10px; }
   .donate .card h3, .donate .card p { margin: 0; }
+  .donate .qr { width: 100%; max-width: 240px; height: auto; border-radius: 12px; background: #fff; align-self: center; }
   .donate .val { direction: ltr; text-align: start; font-family: Consolas, "Segoe UI", monospace; font-size: 18px; letter-spacing: .04em;
                  background: var(--card2); border: 1px solid var(--border); border-radius: 10px; padding: 8px 12px; user-select: all; }
   html[dir="rtl"] .donate .val { text-align: right; }
@@ -631,20 +632,31 @@
       <div class="card">
         <h3>PayPal</h3>
         <p class="ar">بالبطاقة البنكية أو حساب PayPal، من أي دولة.</p><p class="en">By card or PayPal account, from any country.</p>
-        <div class="acts"><a class="btn primary" href="https://paypal.me/abood386" target="_blank" rel="noopener">paypal.me/abood386</a></div>
+        <div class="acts"><a class="btn primary" href="https://paypal.me/abood386" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>
+          <span class="ar">ادعم عبر PayPal</span><span class="en">Support via PayPal</span></a></div>
       </div>
       <div class="card">
         <h3 class="ar">فودافون كاش</h3><h3 class="en">Vodafone Cash</h3>
-        <p class="ar">من داخل مصر: من أي محفظة إلكترونية، أو من InstaPay إلى رقم المحفظة.</p>
-        <p class="en">From Egypt: from any mobile wallet, or from InstaPay to the wallet number.</p>
-        <div class="val" data-rev="37992502010" aria-label="رقم المحفظة">•••••••••••</div>
-        <div class="acts"><button class="btn ghost copy" type="button" data-copy-from="prev"><span class="ar">نسخ الرقم</span><span class="en">Copy number</span></button></div>
+        <p class="ar">من داخل مصر: يفتح تطبيق «أنا فودافون» على التحويل مباشرة. ومن الكمبيوتر امسح الرمز بهاتفك.</p>
+        <p class="en">From Egypt: opens the Ana Vodafone app straight to the transfer. On a computer, scan the code with your phone.</p>
+        <div class="acts">
+          <a class="btn primary" href="https://vf.eg/vfcash?id=mt&amp;qrId=CfrPyw" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="2" width="12" height="20" rx="2"/><path d="M11 18h2"/></svg>
+            <span class="ar">حوّل بفودافون كاش</span><span class="en">Send with Vodafone Cash</span></a>
+          <button class="btn ghost" type="button" id="qr-btn" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><path d="M14 14h3v3h-3zM20 14v.01M14 20h.01M17 20h4v-3"/></svg>
+            <span class="ar">رمز QR</span><span class="en">QR code</span></button>
+        </div>
+        <img class="qr" id="qr-img" src="vfcash-qr.webp" alt="رمز تحويل فودافون كاش" width="400" height="420" hidden>
       </div>
       <div class="card">
-        <h3 class="ar">Bybit — المعرّف (UID)</h3><h3 class="en">Bybit — UID</h3>
-        <p class="ar">لمستخدمي Bybit: تحويل فوري بلا رسوم عبر Bybit Pay.</p><p class="en">For Bybit users: instant, fee-free via Bybit Pay.</p>
-        <div class="val">438878213</div>
-        <div class="acts"><button class="btn ghost copy" type="button" data-copy-from="prev"><span class="ar">نسخ المعرّف</span><span class="en">Copy UID</span></button></div>
+        <h3>Bybit</h3>
+        <p class="ar">لمستخدمي Bybit: تحويل فوري بلا رسوم عبر Bybit Pay. انسخ المعرّف (UID) والصقه في التحويل.</p>
+        <p class="en">For Bybit users: instant, fee-free via Bybit Pay. Copy the UID and paste it in the transfer.</p>
+        <div class="acts"><button class="btn ghost copy" type="button" data-rev="312878834">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2"/><path d="M16 8V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h3"/></svg>
+          <span class="ar">نسخ معرّف Bybit</span><span class="en">Copy Bybit UID</span></button></div>
       </div>
     </div>
     <div class="safe">
@@ -742,16 +754,20 @@
     var two = document.getElementById("ss2");
     two.classList.add("ok"); setTimeout(function () { two.classList.remove("ok"); }, 2200);
   };
-  // الدعم: الرقم يُركَّب عند الفتح (لا يظهر نصًّا صريحًا لبرامج جمع الأرقام)، وأزرار النسخ
-  document.querySelectorAll(".val[data-rev]").forEach(function (el) { el.textContent = el.getAttribute("data-rev").split("").reverse().join(""); });
-  document.querySelectorAll(".copy").forEach(function (b) {
+  // الدعم: المعرّف لا يظهر نصًّا في الصفحة (يُنسخ فقط)، ورمز QR يظهر عند طلبه
+  document.querySelectorAll(".copy[data-rev]").forEach(function (b) {
     b.onclick = function () {
-      var v = b.closest(".card").querySelector(".val").textContent.trim(), keep = b.innerHTML;
+      var v = b.getAttribute("data-rev").split("").reverse().join(""), keep = b.innerHTML;
       try { navigator.clipboard.writeText(v); } catch (e) {}
-      b.textContent = lang() === "ar" ? "✓ نُسخ" : "✓ Copied";
-      setTimeout(function () { b.innerHTML = keep; }, 1600);
+      b.textContent = lang() === "ar" ? "✓ نُسخ المعرّف" : "✓ UID copied";
+      setTimeout(function () { b.innerHTML = keep; }, 1800);
     };
   });
+  var qrb = document.getElementById("qr-btn");
+  if (qrb) qrb.onclick = function () {
+    var img = document.getElementById("qr-img"); img.hidden = !img.hidden;
+    qrb.setAttribute("aria-expanded", String(!img.hidden));
+  };
   var head = document.getElementById("top");
   addEventListener("scroll", function () { head.classList.toggle("scrolled", scrollY > 8); }, { passive: true });
   refresh();
