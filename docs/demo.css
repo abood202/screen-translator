@@ -2,26 +2,26 @@
 .app {
   --a-bg: #12151d; --a-card: #1b1f2a; --a-hover: #262c3b; --a-nav: #0e1117; --a-border: #2a3143;
   --a-track: #141822; --a-fg: #edf0f7; --a-muted: #8a91a5; --a-faint: #4a5164;
-  --a-accent: #2f80ff; --a-accent-h: #4b93ff; --a-soft: #172a4d; --a-title: #0c0f15;
+  --a-accent: #2f80ff; --a-accent-h: #4b93ff; --a-soft: #172a4d; --a-title: #0c0f15; --a-ink: #6aa6ff;
   --a-red: #e5484d; --a-purple: #8b5cf6; --a-green: #22b573; --a-orange: #f97316;
 }
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) .app {
     --a-bg: #f3f5fa; --a-card: #ffffff; --a-hover: #eef2f9; --a-nav: #e9edf5; --a-border: #dde2ec;
     --a-track: #e6eaf2; --a-fg: #161a23; --a-muted: #5d6578; --a-faint: #a7adbb;
-    --a-accent: #2f6fe8; --a-accent-h: #4a84f0; --a-soft: #e2ebfd; --a-title: #ffffff;
+    --a-accent: #2f6fe8; --a-accent-h: #4a84f0; --a-soft: #e2ebfd; --a-title: #ffffff; --a-ink: #1d56bf;
   }
 }
 :root[data-theme="light"] .app {
   --a-bg: #f3f5fa; --a-card: #ffffff; --a-hover: #eef2f9; --a-nav: #e9edf5; --a-border: #dde2ec;
   --a-track: #e6eaf2; --a-fg: #161a23; --a-muted: #5d6578; --a-faint: #a7adbb;
-  --a-accent: #2f6fe8; --a-accent-h: #4a84f0; --a-soft: #e2ebfd; --a-title: #ffffff;
+  --a-accent: #2f6fe8; --a-accent-h: #4a84f0; --a-soft: #e2ebfd; --a-title: #ffffff; --a-ink: #1d56bf;
 }
 
 .app { background: var(--a-bg); color: var(--a-fg); border: 1px solid var(--a-border); border-radius: 10px; overflow: hidden;
        font-family: "Segoe UI", Tahoma, system-ui, sans-serif; font-size: 14px; line-height: 1.5; text-align: start;
        box-shadow: var(--shadow); user-select: none; }
-.app button, .app select, .app input { font: inherit; color: inherit; }
+:where(.app) :where(button, select, input) { font: inherit; color: inherit; }
 .app button { cursor: pointer; }
 .app svg { width: 18px; height: 18px; flex: none; }
 .app :focus-visible { outline: 2px solid var(--a-accent); outline-offset: 1px; }
@@ -69,7 +69,7 @@ html[dir="ltr"] .a-sel { background-position: calc(100% - 19px) 18px, calc(100% 
 .mw-row .sp { flex: 1; }
 .mw-langs { display: grid; grid-template-columns: 1fr auto 1fr; gap: 10px; }
 .mw-swap { width: 40px; height: 40px; border-radius: 9px; border: 1px solid var(--a-border); background: var(--a-soft);
-           color: var(--a-accent); display: grid; place-items: center; transition: transform .25s; }
+           color: var(--a-ink); display: grid; place-items: center; transition: transform .25s; }
 .mw-swap.spin { transform: rotate(180deg); }
 .mw-label { color: var(--a-muted); font-size: 13px; }
 .mw-out { background: var(--a-card); border-radius: 12px; min-height: 170px; padding: 16px 18px; font-size: 19px; line-height: 1.7;
@@ -105,7 +105,7 @@ html[dir="ltr"] .a-sel { background-position: calc(100% - 19px) 18px, calc(100% 
 @keyframes fadein { from { opacity: 0; transform: translateY(4px); } }
 .hub-main h3 { font-size: 26px; margin: 0 0 14px; }
 .hub-main .desc { color: var(--a-muted); margin: -6px 0 14px; font-size: 13px; }
-.hub-main h4 { color: var(--a-accent); font-size: 16px; margin: 18px 0 8px; }
+.hub-main h4 { color: var(--a-ink); font-size: 16px; margin: 18px 0 8px; }
 .a-card { background: var(--a-card); border-radius: 12px; padding: 6px 16px; }
 .a-row { display: flex; align-items: center; gap: 12px; padding: 11px 0; border-bottom: 1px solid var(--a-border); flex-wrap: wrap; }
 .a-row:last-child { border-bottom: 0; }
@@ -120,7 +120,7 @@ html[dir="ltr"] .a-sel { background-position: calc(100% - 19px) 18px, calc(100% 
 .a-row .a-sel { width: 200px; }
 .a-pill { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; border-radius: 8px; border: 0;
           background: var(--a-accent); color: #fff; font-size: 13px; font-weight: 600; }
-.a-pill.soft { background: var(--a-soft); color: var(--a-accent); }
+.a-pill.soft { background: var(--a-soft); color: var(--a-ink); }
 .a-pill svg { width: 15px; height: 15px; }
 
 /* الرئيسية */
@@ -152,7 +152,7 @@ html[dir="rtl"] .tool .chev { transform: scaleX(-1); }
 .drop .ci { width: 52px; height: 52px; border-radius: 50%; display: grid; place-items: center; margin: 0 auto 10px;
             background: var(--a-soft); color: var(--a-accent); }
 .drop b { display: block; }
-.drop small { color: var(--a-accent); }
+.drop small { color: var(--a-ink); }
 .drop .file { margin-top: 8px; color: var(--a-green); font-weight: 600; }
 
 /* اختبار السماع */
