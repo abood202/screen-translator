@@ -134,8 +134,23 @@
                         color: var(--accent-fg); display: grid; place-items: center; font-weight: 700; margin-bottom: 12px; }
   ol.steps b { display: block; margin-bottom: 4px; }
   ol.steps span.d { color: var(--muted); font-size: 15px; }
-  .note { background: var(--warn-bg); border: 1px solid var(--warn-bd); color: var(--warn-fg); border-radius: var(--radius);
-          padding: 14px 18px; margin-top: 18px; font-size: 15px; }
+  /* تحذير ويندوز: تحت زر التنزيل مباشرة، حيث يحتاجه من نزّل للتو */
+  .smart { display: flex; gap: 14px; align-items: flex-start; margin-top: 22px; max-width: 34em;
+           background: var(--warn-bg); border: 1px solid var(--warn-bd); color: var(--warn-fg);
+           border-radius: var(--radius); padding: 14px 18px; font-size: 15px; line-height: 1.6;
+           transition: box-shadow .3s, transform .3s; }
+  .smart.flash { box-shadow: 0 0 0 3px var(--warn-bd); transform: translateY(-2px); }
+  .smart-ico { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
+               background: color-mix(in srgb, currentColor 14%, transparent); }
+  .smart-ico svg { width: 20px; height: 20px; }
+  .smart b { display: block; margin-bottom: 2px; }
+  .smart p { margin: 0; }
+  .smart-steps { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0 6px; }
+  .smart .k { border: 1px solid var(--warn-bd); border-radius: 6px; padding: 2px 10px; font-size: 14px;
+              font-family: "Segoe UI", system-ui, sans-serif; background: color-mix(in srgb, var(--warn-bg) 60%, var(--card)); }
+  .smart .k.primary { background: #0067c0; border-color: #0067c0; color: #fff; }
+  .smart .arrow { opacity: .7; }
+  .smart .hint { font-size: 13px; opacity: .85; }
   kbd { background: var(--card2); border: 1px solid var(--border); border-radius: 6px; padding: 1px 7px;
         font-family: inherit; font-size: 14px; white-space: nowrap; color: var(--fg); }
 
@@ -227,6 +242,20 @@
         <span class="ar">بلا صلاحيات مسؤول</span><span class="en">No admin rights</span>
         <span class="ver" hidden></span>
       </div>
+      <div class="smart" id="smart" role="note">
+        <div class="smart-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M12 8v5M12 16h.01"/></svg></div>
+        <div>
+          <b class="ar">ظهرت رسالة «Windows protected your PC» عند التشغيل؟</b>
+          <b class="en">Seeing “Windows protected your PC” on first run?</b>
+          <p class="ar">طبيعية لأن البرنامج جديد وغير موقّع رقميًا بعد. اضغط:</p>
+          <p class="en">That’s normal: the app is new and not code-signed yet. Click:</p>
+          <div class="smart-steps" dir="ltr">
+            <span class="k">More info</span><span class="arrow" aria-hidden="true">→</span><span class="k primary">Run anyway</span>
+          </div>
+          <p class="hint ar">بالعربية: «مزيد من المعلومات» ثم «تشغيل على أي حال».</p>
+          <p class="hint en">In Arabic Windows: «مزيد من المعلومات» then «تشغيل على أي حال».</p>
+        </div>
+      </div>
     </div>
     <img class="shot" data-shot="main" src="shots/main-ar-dark.webp" alt="" width="875" height="575">
   </div>
@@ -307,10 +336,6 @@
         <span class="d ar">اضغط <kbd>Ctrl+Alt+A</kbd> فيترجم ما يُقال في الفيديو أو اللعبة أو المكالمة.</span>
         <span class="d en">Press <kbd>Ctrl+Alt+A</kbd> to translate what’s said in a video, game or call.</span></li>
     </ol>
-    <div class="note">
-      <span class="ar"><b>تحذير ويندوز عند أول تشغيل؟</b> قد تظهر «Windows protected your PC» لأن البرنامج جديد وغير موقّع رقميًا بعد. اضغط «مزيد من المعلومات» (More info) ثم «تشغيل على أي حال» (Run anyway).</span>
-      <span class="en"><b>Windows warning on first run?</b> “Windows protected your PC” may appear because the app is new and not code-signed yet. Click “More info”, then “Run anyway”.</span>
-    </div>
   </section>
 
   <section id="requirements">
@@ -441,6 +466,15 @@
       img.width = current === "main" ? 875 : 1475; img.height = current === "main" ? 575 : 975;
       refresh();
     };
+  });
+  // بعد ضغط «نزّل»: يلفت النظر إلى تنبيه ويندوز (ومن الأسفل يعود إليه)
+  document.querySelectorAll(".dl-setup, .dl-portable").forEach(function (a) {
+    a.addEventListener("click", function () {
+      var box = document.getElementById("smart");
+      if (!a.closest(".hero")) box.scrollIntoView({ block: "center" });
+      box.classList.add("flash");
+      setTimeout(function () { box.classList.remove("flash"); }, 2400);
+    });
   });
   var head = document.getElementById("top");
   addEventListener("scroll", function () { head.classList.toggle("scrolled", scrollY > 8); }, { passive: true });
