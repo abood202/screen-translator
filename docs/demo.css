@@ -133,7 +133,7 @@ html[dir="ltr"] .a-sel { background-position: calc(100% - 19px) 18px, calc(100% 
 .a-search { width: 100%; height: 42px; border-radius: 10px; border: 1px solid var(--a-border); background: var(--a-card);
             padding: 0 14px; margin: 14px 0; user-select: text; }
 .a-search:focus { outline: none; border-color: var(--a-accent); }
-.tools { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+.a-tools { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
 .tool { display: flex; gap: 14px; align-items: center; text-align: start; padding: 18px; border-radius: 14px; border: 0;
         background: var(--a-card); transition: background .15s, transform .15s; }
 .tool:hover { background: var(--a-hover); transform: translateY(-1px); }
@@ -174,7 +174,7 @@ html[dir="ltr"] .fit > .app { left: 0; transform-origin: top left; }
 .fluid .hub-brand .menu { display: none; }
 .fluid .hub-main { padding: 16px 14px 24px; }
 .fluid .hub-main h3 { font-size: 21px; }
-.fluid .tools { grid-template-columns: 1fr; }
+.fluid .a-tools { grid-template-columns: 1fr; }
 .fluid .a-row .a-sel { width: 100%; }
 .fluid .mw-row .lbl, .fluid .mw-row .opt { display: none; }
 .fluid .mw-row .a-btn { padding: 0 10px; }
