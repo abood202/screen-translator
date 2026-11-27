@@ -134,23 +134,31 @@
                         color: var(--accent-fg); display: grid; place-items: center; font-weight: 700; margin-bottom: 12px; }
   ol.steps b { display: block; margin-bottom: 4px; }
   ol.steps span.d { color: var(--muted); font-size: 15px; }
-  /* تحذير ويندوز: تحت زر التنزيل مباشرة، حيث يحتاجه من نزّل للتو */
-  .smart { display: flex; gap: 14px; align-items: flex-start; margin-top: 22px; max-width: 34em;
-           background: var(--warn-bg); border: 1px solid var(--warn-bd); color: var(--warn-fg);
-           border-radius: var(--radius); padding: 14px 18px; font-size: 15px; line-height: 1.6;
-           transition: box-shadow .3s, transform .3s; }
-  .smart.flash { box-shadow: 0 0 0 3px var(--warn-bd); transform: translateY(-2px); }
-  .smart-ico { flex: none; width: 34px; height: 34px; border-radius: 10px; display: grid; place-items: center;
-               background: color-mix(in srgb, currentColor 14%, transparent); }
-  .smart-ico svg { width: 20px; height: 20px; }
-  .smart b { display: block; margin-bottom: 2px; }
-  .smart p { margin: 0; }
-  .smart-steps { display: inline-flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 8px 0 6px; }
-  .smart .k { border: 1px solid var(--warn-bd); border-radius: 6px; padding: 2px 10px; font-size: 14px;
-              font-family: "Segoe UI", system-ui, sans-serif; background: color-mix(in srgb, var(--warn-bg) 60%, var(--card)); }
-  .smart .k.primary { background: #0067c0; border-color: #0067c0; color: #fff; }
-  .smart .arrow { opacity: .7; }
-  .smart .hint { font-size: 13px; opacity: .85; }
+  /* تحذير ويندوز: سطر صغير تحت زر التنزيل، يُفتح عند الحاجة (ويُفتح وحده بعد ضغط «نزّل») */
+  .smart { margin-top: 14px; max-width: 34em; font-size: 14px; }
+  .smart summary { display: inline-flex; align-items: center; gap: 8px; cursor: pointer; list-style: none;
+                   color: var(--muted); padding: 4px 0; border-radius: 6px; }
+  .smart summary::-webkit-details-marker { display: none; }
+  .smart summary svg { width: 17px; height: 17px; color: var(--c-orange); flex: none; }
+  .smart summary .how { color: var(--link); text-decoration: underline; text-underline-offset: 3px; }
+  .smart summary:hover { color: var(--fg); }
+  .smart[open] summary .how { display: none; }
+  .smart-body { margin-top: 8px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius);
+                padding: 16px; display: grid; grid-template-columns: auto 1fr; gap: 14px 16px; align-items: center; }
+  .smart-body p { margin: 0; color: var(--muted); grid-column: 1 / -1; }
+  .smart-body .n { width: 26px; height: 26px; border-radius: 50%; background: var(--accent); color: var(--accent-fg);
+                   display: grid; place-items: center; font-weight: 700; font-size: 13px; }
+  .smart.flash .smart-body { box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 45%, transparent); }
+  .smart-body { transition: box-shadow .4s; }
+  /* شكل نافذة ويندوز المصغّرة: يعرف الزائر الزر حين يراه */
+  .ss { direction: ltr; text-align: left; background: #0b5cad; color: #fff; border-radius: 8px; padding: 10px 14px;
+        font-family: "Segoe UI", system-ui, sans-serif; font-size: 13px; line-height: 1.5; }
+  .ss b { display: block; font-size: 15px; font-weight: 600; }
+  .ss u { font-weight: 600; outline: 2px solid #ffd166; outline-offset: 2px; border-radius: 2px; text-decoration: underline; }
+  .ss .row { display: flex; justify-content: flex-end; gap: 6px; margin-top: 6px; }
+  .ss .bt { border: 1px solid rgba(255, 255, 255, .7); padding: 2px 12px; border-radius: 3px; }
+  .ss .bt.hl { background: #fff; color: #0b5cad; font-weight: 600; outline: 2px solid #ffd166; outline-offset: 2px; }
+  .smart-body .ar-name { color: var(--muted); font-size: 13px; }
   kbd { background: var(--card2); border: 1px solid var(--border); border-radius: 6px; padding: 1px 7px;
         font-family: inherit; font-size: 14px; white-space: nowrap; color: var(--fg); }
 
@@ -163,12 +171,12 @@
   .no { color: var(--c-red); font-weight: 600; }
 
   /* الأسئلة */
-  details { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 0 20px; margin-bottom: 10px; }
-  summary { cursor: pointer; padding: 16px 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
-  summary::-webkit-details-marker { display: none; }
-  summary::after { content: "+"; color: var(--muted); font-size: 22px; line-height: 1; }
-  details[open] summary::after { content: "−"; }
-  details p { margin: 0 0 16px; color: var(--muted); }
+  #faq details { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 0 20px; margin-bottom: 10px; }
+  #faq summary { cursor: pointer; padding: 16px 0; font-weight: 600; list-style: none; display: flex; justify-content: space-between; gap: 12px; }
+  #faq summary::-webkit-details-marker { display: none; }
+  #faq summary::after { content: "+"; color: var(--muted); font-size: 22px; line-height: 1; }
+  #faq details[open] summary::after { content: "−"; }
+  #faq details p { margin: 0 0 16px; color: var(--muted); }
 
   .cta { text-align: center; background: var(--card); border: 1px solid var(--border); border-radius: 20px; padding: 48px 20px;
          background-image: radial-gradient(closest-side, var(--hero-glow), transparent); }
@@ -242,20 +250,22 @@
         <span class="ar">بلا صلاحيات مسؤول</span><span class="en">No admin rights</span>
         <span class="ver" hidden></span>
       </div>
-      <div class="smart" id="smart" role="note">
-        <div class="smart-ico" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M12 8v5M12 16h.01"/></svg></div>
-        <div>
-          <b class="ar">ظهرت رسالة «Windows protected your PC» عند التشغيل؟</b>
-          <b class="en">Seeing “Windows protected your PC” on first run?</b>
-          <p class="ar">طبيعية لأن البرنامج جديد وغير موقّع رقميًا بعد. اضغط:</p>
-          <p class="en">That’s normal: the app is new and not code-signed yet. Click:</p>
-          <div class="smart-steps" dir="ltr">
-            <span class="k">More info</span><span class="arrow" aria-hidden="true">→</span><span class="k primary">Run anyway</span>
-          </div>
-          <p class="hint ar">بالعربية: «مزيد من المعلومات» ثم «تشغيل على أي حال».</p>
-          <p class="hint en">In Arabic Windows: «مزيد من المعلومات» then «تشغيل على أي حال».</p>
+      <details class="smart" id="smart">
+        <summary>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M12 8v5M12 16h.01"/></svg>
+          <span class="ar">ظهر تحذير ويندوز عند التشغيل؟</span><span class="en">Windows warning on first run?</span>
+          <span class="how ar">هذا الحل</span><span class="how en">Here’s what to do</span>
+        </summary>
+        <div class="smart-body">
+          <p class="ar">طبيعي لأن البرنامج جديد وغير موقّع رقميًا بعد. خطوتان:</p>
+          <p class="en">Normal for a new app that isn’t code-signed yet. Two clicks:</p>
+          <span class="n">1</span>
+          <div class="ss"><b>Windows protected your PC</b>Microsoft Defender SmartScreen prevented an unrecognized app…<br><u>More info</u></div>
+          <span class="n">2</span>
+          <div class="ss"><b>Windows protected your PC</b>App: ScreenTranslator-Setup.exe<div class="row"><span class="bt hl">Run anyway</span><span class="bt">Don’t run</span></div></div>
+          <p class="ar-name ar">في ويندوز العربي: «مزيد من المعلومات» ثم «تشغيل على أي حال».</p>
         </div>
-      </div>
+      </details>
     </div>
     <img class="shot" data-shot="main" src="shots/main-ar-dark.webp" alt="" width="875" height="575">
   </div>
@@ -467,10 +477,11 @@
       refresh();
     };
   });
-  // بعد ضغط «نزّل»: يلفت النظر إلى تنبيه ويندوز (ومن الأسفل يعود إليه)
+  // بعد ضغط «نزّل»: يُفتح شرح تحذير ويندوز تحت الزر (ومن الأسفل تعود الصفحة إليه)
   document.querySelectorAll(".dl-setup, .dl-portable").forEach(function (a) {
     a.addEventListener("click", function () {
       var box = document.getElementById("smart");
+      box.open = true;
       if (!a.closest(".hero")) box.scrollIntoView({ block: "center" });
       box.classList.add("flash");
       setTimeout(function () { box.classList.remove("flash"); }, 2400);
